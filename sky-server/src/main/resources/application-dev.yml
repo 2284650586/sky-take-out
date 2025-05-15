@@ -6,3 +6,9 @@ sky:
     database: sky_take_out
     username: root
     password: lxt1025
+
+  alioss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id: LTAI5tBRc1T9xaJ3yfSF3BqW
+    access-key-secret: C7BUOjcE9wRtqM0onqjDBFw7xEqjvi
+    bucket-name: bobo-sky-itcast
