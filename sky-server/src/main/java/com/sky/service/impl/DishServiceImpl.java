@@ -102,7 +102,7 @@ DishServiceImpl implements DishService {
     public void deleteBatch(List<Long> ids) {
         //判断当前菜品是否在起售中
         ids.forEach(id -> {
-            Dish dish = dishMapper.getbyId(id);
+            Dish dish = dishMapper.getById(id);
             if (dish.getStatus() == StatusConstant.ENABLE) {
                 //当前菜品处于起售中，不能删除
                 throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
@@ -136,7 +136,7 @@ DishServiceImpl implements DishService {
     @Override
     @Transactional
     public DishVO getByIdWithFlavor(Long id) {
-        Dish dish = dishMapper.getbyId(id);
+        Dish dish = dishMapper.getById(id);
         List<DishFlavor> dishFlavors = dishFlavorMapper.getByDishId(id);
 
         DishVO dishVO = new DishVO();
@@ -166,6 +166,7 @@ DishServiceImpl implements DishService {
     }
 
     @Override
+    @Transactional
     public void startOrStop(Integer status, Long id) {
         Dish dish = Dish.builder()
                 .id(id)
@@ -189,5 +190,11 @@ DishServiceImpl implements DishService {
             }
 
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Dish> list(Long categoryId) {
+        return dishMapper.list(categoryId, StatusConstant.ENABLE);
     }
 }

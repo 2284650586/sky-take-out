@@ -34,7 +34,7 @@ public interface DishMapper {
     Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
     @Select("select * from sky_take_out.dish where id = #{id}")
-    Dish getbyId(Long id);
+    Dish getById(Long id);
 
     @Select("delete from sky_take_out.dish where id = #{id}")
     void deleteById(Long id);
@@ -43,4 +43,10 @@ public interface DishMapper {
 
     @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
+
+    @Select("select * from sky_take_out.dish where category_id = #{categoryId} order by create_time desc")
+    List<Dish> list(Long categoryId, Integer enable);
+
+    @Select("select a.* from sky_take_out.dish a left outer join sky_take_out.setmeal_dish b on a.id = b.dish_id where b.setmeal_id = #{setmealId}")
+    List<Dish> getBySetmealId(Long setmealId);
 }
